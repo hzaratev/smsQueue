@@ -18,12 +18,13 @@ The MembersView will contain the logic on how to:
 class QueueView(APIView):
     def get(self, request):
         result= queue.dequeue()
-        sendMessage('queue')
+        sendMessage('Su turno')
         return Response(json.dumps(result), status=status.HTTP_200_OK)
 
     def post(self, request):
         val = json.loads(request.body)
         queue.enqueue(val)
+        sendMessage('Su número es el' + str(queue.size()))
         return Response(json.dumps("ok"), status=status.HTTP_200_OK)
 
 
